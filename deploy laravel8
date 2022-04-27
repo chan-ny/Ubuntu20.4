@@ -1,0 +1,49 @@
+# create project name
+  $ cd /var/www/html/
+  $ sudo compoer create-project laravel/laravel app_excample
+  $ sudo chown -R www-data:www-data /var/www/html/app_example/ 
+  
+# config nginx
+  $ cd /etc/eginx/
+  $ cd sites-available/
+  $ sudo nano laravel8
+  # code config command below to edit the virtual host file.
+  server {
+     listen 80;
+     listen [::]:80 ;
+
+     # Log files for Debugging
+     access_log /var/log/nginx/vhostlaravel-access.log;
+     error_log /var/log/nginx/vhostlaravel-error.log;
+
+     # Webroot Directory for Laravel project
+     root /var/www/html/app_laravel8/public/;
+     index index.php index.html index.htm;
+
+     # Your Domain Name
+     # server_name www.your_domain.com your_domain.com;
+     server_name _;
+     
+     location / {
+             try_files $uri $uri/ /index.php?$query_string;
+     }
+
+     # PHP-FPM Configuration Nginx:q:
+     location ~ \.php$ {
+             try_files $uri =404;
+             fastcgi_split_path_info ^(.+\.php)(/.+)$;
+             fastcgi_pass unix:/run/php/php8.0-fpm.sock;
+             fastcgi_index index.php;
+             fastcgi_param SCRIPT_FILENAME $document_root$fastcgi_script_name;
+             include fastcgi_params;
+     }
+}
+
+crtl+x
+y
+
+# testing code in eginx
+$ sudo nginx -t
+$ sudo systemctl restart eginx
+
+complete

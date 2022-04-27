@@ -2,6 +2,9 @@
   $ cd /var/www/html/
   $ sudo compoer create-project laravel/laravel app_excample
   $ sudo chown -R www-data:www-data /var/www/html/app_example/ 
+  or 
+  $ sudo chown -R www-data.www-data /var/www/travellist/storage
+  $ sudo chown -R www-data.www-data /var/www/travellist/bootstrap/cache
   
 # config nginx
   $ cd /etc/eginx/
